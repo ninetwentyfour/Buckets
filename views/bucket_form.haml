@@ -1,0 +1,40 @@
+!!!!
+%html
+	%head
+		%link{:href => "/css/twitter.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
+		%link{:href => "/css/style.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
+	%body
+		.container
+			.hero-unit
+				- if !@errors.empty? || @failure
+					.notice.failure= @failure || "Please fill in all the required fields."
+				%form.contact-form{:enctype => "multipart/form-data", :method => "post", :id => "contactform", :action => "/bucket-solved"}
+					%p.form-field-row
+						%span.label
+							%label{:for => "bucket1"} Bucket 1
+						%span.field
+							%input#name{:name => "bucket1", :type => "number", :value => @values[:name], :size => "30", :required => true}
+							%span.error= @errors[:bucket1]
+					%p.form-field-row
+						%span.label
+							%label{:for => "bucket2"} Bucket 2
+						%span.field
+							%input#email{:name => "bucket2", :type => "number", :value => @values[:email], :size => "30", :required => true}
+							%span.error= @errors[:bucket2]
+					%p.form-field-row
+						%span.label
+							%label{:for => "target"} Target Size
+						%span.field
+							%input#email{:name => "target", :type => "number", :value => @values[:email], :size => "30", :required => true}
+							%span.error= @errors[:target]
+					%p.form-field-row
+						%span.label
+							%label{:for => "email"} Email
+						%span.field
+							%input#email{:name => "email", :type => "email", :value => @values[:email], :size => "30"}
+							%span.error= @errors[:email]
+					%br
+					%p.form-field-row.send
+						%input#send-button.btn.btn-inverse{:name => "send-button", :type => "submit", :value => "Calculate"}
+					- if @sent == true
+						.notice Your message has been sent. Thank you!

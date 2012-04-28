@@ -1,0 +1,16 @@
+!!!!
+%html
+	%head
+		%link{:href => "/css/twitter.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
+		%link{:href => "/css/style.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
+	%body
+		.container
+			.hero-unit
+				- if !@errors.empty? || @failure
+					.notice.failure
+						- @errors.each do |k, v|
+							= v
+				=@solution
+				%br
+				%br
+				%a.btn.btn-inverse{:href => "/bucket-solver"} Try Again

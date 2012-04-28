@@ -1,0 +1,10 @@
+body{
+	background:url(http://subtlepatterns.com/patterns/worn_dots.png);
+}
+
+.container{
+	margin-top:60px;
+}
+.hero-unit{
+	background-color:rgba(245, 245, 245, 0.55);
+}
