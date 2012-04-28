@@ -17,10 +17,16 @@ def solve params
   step = 0
   solution = nil
   #check it two buckets add to target - easy to solve
-  if params[:bucket1].to_i + params[:bucket2].to_i == params[:target].to_i
+  if params[:bucket1].to_i + params[:bucket2].to_i == params[:target].to_i or params[:target].to_i == 0
     solution = "Fill both buckets."
     step = 1
-    configurations[solution] = "Fill both buckets."
+    if params[:bucket1].to_i == 0
+      configurations[solution] = "Fill #{params[:bucket2]} bucket."
+    elsif params[:bucket2].to_i == 0
+      configurations[solution] = "Fill #{params[:bucket1]} bucket."
+    elsif params[:target].to_i == 0
+      configurations[solution] = "That's easy. Do nothing. Relax for a bit."
+    end
   end
 
   current = configurations.keys
@@ -42,13 +48,13 @@ def solve params
         kn = Marshal.load(Marshal.dump(k))   # make deep copy
         # increase fill level to bucket denomination
         kn[i][1] = kn[i][0]
-        new_configurations[kn] = "#{configurations[k]} Fill #{kn[i][0]}"
+        new_configurations[kn] = "#{configurations[k]} Fill #{kn[i][0]} ,"
 
         # do an empty operation on this bucket
         kn = Marshal.load(Marshal.dump(k))   # make deep copy
         # set fill level to zero
         kn[i][1] = 0
-        new_configurations[kn] = "#{configurations[k]} Empty #{kn[i][0]}"
+        new_configurations[kn] = "#{configurations[k]} Empty #{kn[i][0]} ,"
 
         # do a move operation on any other bucket
         k.size.times{|j|
@@ -57,7 +63,7 @@ def solve params
           h = [kn[i][1], kn[j][0]-kn[j][1]].min   
           kn[i][1] -= h
           kn[j][1] += h
-          new_configurations[kn] = "#{configurations[k]} Move #{kn[i][0]} to #{kn[j][0]}"
+          new_configurations[kn] = "#{configurations[k]} Move #{kn[i][0]} to #{kn[j][0]} ,"
         }
       }
     }
@@ -73,7 +79,7 @@ def solve params
   end
 
   if solution
-    return "Solution found with #{step} steps: #{configurations[solution]}"
+    return "#{configurations[solution]}"
   else
     return "Impossible to reach target"
   end
@@ -103,6 +109,8 @@ end
 def solveable?(bucket1, bucket2, target)
   if target.to_i > bucket1.to_i + bucket2.to_i
     false
+  elsif bucket1.to_i % 2 == 0 and bucket2.to_i % 2 == 0 and target.to_i % 2 != 0
+    false
   else
     true
   end
@@ -115,8 +123,7 @@ end
 def validate params
   errors = {}
 
-  # [:bucket1, :bucket2, :target, :email].each{|key| params[key] = (params[key] || "").strip }
-  # 
+
   if given? params[:bucket1]
     errors[:bucket1]   = "You can't have a bucket with a size less than 0" unless valid_bucket? params[:bucket1]
   else

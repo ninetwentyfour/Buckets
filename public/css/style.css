@@ -8,3 +8,6 @@ body{
 .hero-unit{
 	background-color:rgba(245, 245, 245, 0.55);
 }
+.solution_list{
+	display:none;
+}

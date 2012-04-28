@@ -1,4 +1,4 @@
-!!!!
+!!! 5
 %html
 	%head
 		%link{:href => "/css/twitter.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
@@ -12,9 +12,15 @@
 					.notice.failure
 						- @errors.each do |k, v|
 							= v
-				=@solution
+				- else
+					Solution found: 
+					.solution_list
+						= @solution
+					%ol.ordered_solution
 				%br
 				%br
 				%a.btn.btn-inverse{:href => "/"} Try Again
 			Created by 
 			%a{:href => "http://www.travisberry.com"} Travis Berry
+		%script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"}
+		%script{:src => "/js/common.js"}
