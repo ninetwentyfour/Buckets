@@ -2,7 +2,8 @@
 
 def solve params
   # get input as list of integers (#buckets, buckets sizes, target)
-  gets = "2, #{params[:bucket1]}, #{params[:bucket2]}, #{params[:target]}"
+  buckets_sizes = params[:bucket].map{ |k,v|  "#{v}" }.join(',')
+  gets = "#{params[:number]}, #{buckets_sizes}, #{params[:target]}"
   input = gets.split(/,/).map{|s| s.to_i}
 
   count = input.shift
@@ -181,9 +182,10 @@ get '/?' do
 end
 
 post '/bucket-solved/?' do
-  @errors     = validate(params)
-  @values     = params
-
+  # @errors     = validate(params)
+  # @values     = params
+  # 
+  @errors = {}
   if @errors.empty?
     begin
       @solution = solve(params)
@@ -197,6 +199,8 @@ post '/bucket-solved/?' do
       @failure = "Ooops, it looks like something went wrong while attempting to send your email. Mind trying again now or later? :)"
     end
   end
-
+  
+  
+  #@solution = params[:bucket].map{ |k,v|  "#{v}" }.join(',')
   haml :bucket_solved
 end
