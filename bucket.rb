@@ -99,18 +99,12 @@ def valid_email?(email)
   end
 end
 
-def valid_bucket?(bucket)
-  if bucket.to_i < 0
+def solveable?(bucket, target)
+  sum = 0
+  bucket.each { |k,v| sum+=v.to_i }
+  if target.to_i > sum
     false
-  else
-    true
-  end
-end
-
-def solveable?(bucket1, bucket2, target)
-  if target.to_i > bucket1.to_i + bucket2.to_i
-    false
-  elsif bucket1.to_i % 2 == 0 and bucket2.to_i % 2 == 0 and target.to_i % 2 != 0
+  elsif bucket.each { |k,v| v.to_i % 2 == 0 } and target.to_i % 2 != 0
     false
   else
     true
@@ -123,22 +117,9 @@ end
 
 def validate params
   errors = {}
-
-
-  if given? params[:bucket1]
-    errors[:bucket1]   = "You can't have a bucket with a size less than 0" unless valid_bucket? params[:bucket1]
-  else
-    errors[:bucket1]   = "This field is required"
-  end
-  
-  if given? params[:bucket2]
-    errors[:bucket2]   = "You can't have a bucket with a size less than 0" unless valid_bucket? params[:bucket2]
-  else
-    errors[:bucket2]   = "This field is required"
-  end
   
   if given? params[:target]
-    errors[:target]   = "This is not solveable" unless solveable?(params[:bucket1],params[:bucket2],params[:target])
+    errors[:target]   = "This is not solveable" unless solveable?(params[:bucket],params[:target])
   else
     errors[:target]   = "This field is required"
   end
@@ -182,10 +163,9 @@ get '/?' do
 end
 
 post '/bucket-solved/?' do
-  # @errors     = validate(params)
-  # @values     = params
-  # 
-  @errors = {}
+  @errors     = validate(params)
+  @values     = params
+
   if @errors.empty?
     begin
       @solution = solve(params)
@@ -200,7 +180,5 @@ post '/bucket-solved/?' do
     end
   end
   
-  
-  #@solution = params[:bucket].map{ |k,v|  "#{v}" }.join(',')
   haml :bucket_solved
 end
