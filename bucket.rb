@@ -145,7 +145,7 @@ end
 
 def send_email params, solution
   email_template = <<-EOS
-  Sent via http://www.travisberry.com/contact/ 
+  Sent via http://bucket-solver.herokuapp.com/ 
   A solution for your bucket problem has been found:     {{ solution }}
   EOS
 

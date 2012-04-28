@@ -6,6 +6,8 @@
 	%body
 		.container
 			.hero-unit
+				%h1 BucketBot 5000
+				%hr
 				- if !@errors.empty? || @failure
 					.notice.failure= @failure || "Please fill in all the required fields."
 				%form.contact-form{:enctype => "multipart/form-data", :method => "post", :id => "contactform", :action => "/bucket-solved"}

@@ -6,6 +6,8 @@
 	%body
 		.container
 			.hero-unit
+				%h1 BucketBot 5000
+				%hr
 				- if !@errors.empty? || @failure
 					.notice.failure
 						- @errors.each do |k, v|
