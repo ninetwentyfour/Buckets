@@ -31,7 +31,7 @@
 							%span.error= @errors[:target]
 					%p.form-field-row
 						%span.label
-							%label{:for => "email"} Email
+							%label{:for => "email"} Email (if you want a copy of the results emailed to you)
 						%span.field
 							%input#email{:name => "email", :type => "email", :value => @values[:email], :size => "30"}
 							%span.error= @errors[:email]
@@ -40,3 +40,5 @@
 						%input#send-button.btn.btn-inverse{:name => "send-button", :type => "submit", :value => "Calculate"}
 					- if @sent == true
 						.notice Your message has been sent. Thank you!
+			Created by 
+			%a{:href => "http://www.travisberry.com"} Travis Berry
