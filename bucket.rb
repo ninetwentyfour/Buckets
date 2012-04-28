@@ -168,7 +168,7 @@ def send_email params, solution
 end
 
 
-get '/bucket-solver/?' do
+get '/?' do
   @errors, @values, @sent = {}, {}, false
   haml :bucket_form
 end
