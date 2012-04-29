@@ -21,18 +21,16 @@ def solve params
   sum = 0
   params[:bucket].each { |k,v| sum+=v.to_i }
   if sum == params[:target].to_i or params[:target].to_i == 0
-    solution = "Fill both buckets."
-    step = 1
-    solve_string = ""
+    solution = "" #set to anything so not nill anymore
     params[:bucket].each do |k,v| 
       if v.to_i != 0
-        solve_string << "Fill #{v} bucket,"
+        solution << "Fill #{v} bucket," #add to string with comma to split with js later
       end
     end
     if params[:target].to_i == 0
-      solve_string = "That's easy. Do nothing. Relax for a bit."
+      solution = "That's easy. Do nothing. Relax for a bit." #override any solution if the target is 0
     end
-    configurations[solution] = solve_string
+    configurations[solution] = solution
   end
 
   current = configurations.keys
@@ -112,6 +110,7 @@ def solveable?(bucket, target)
   else
     even = true
     cnt = 0
+    #do this nasty loop to check if all bucket values are even
     while even == true and cnt <= bucket.length do
       bucket.each do |k,v| 
         if v.to_i % 2 != 0
@@ -120,6 +119,7 @@ def solveable?(bucket, target)
       end
       cnt+=1
     end
+    #if all even bucket values but an odd target - fail
     if even == true and target.to_i % 2 != 0
       return false
     end

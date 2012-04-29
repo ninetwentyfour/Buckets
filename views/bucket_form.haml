@@ -1,8 +1,8 @@
 !!! 5
 %html
 	%head
-		%link{:href => "/css/twitter.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
-		%link{:href => "/css/style.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}/
+		%link{:href => "/css/twitter.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}
+		%link{:href => "/css/style.css", :media => "screen", :rel => "stylesheet", :type => "text/css"}
 	%body
 		.container
 			.hero-unit
@@ -22,13 +22,13 @@
 						%span
 							%label{:for => "target"} Target Size
 						%span.field
-							%input#email{:name => "target", :type => "number", :value => @values[:email], :size => "30", :required => true}
+							%input{:name => "target", :type => "number", :value => @values[:email], :size => "30", :required => true}
 							%span.error= @errors[:target]
 					%p.form-field-row
 						%span
 							%label{:for => "email"} Email (if you want a copy of the results emailed to you)
 						%span.field
-							%input#email{:name => "email", :type => "email", :value => @values[:email], :size => "30"}
+							%input{:name => "email", :type => "email", :value => @values[:email], :size => "30"}
 							%span.error= @errors[:email]
 					%br
 					%p.form-field-row.send
@@ -37,5 +37,5 @@
 						.notice Your message has been sent. Thank you!
 			Created by 
 			%a{:href => "http://www.travisberry.com"} Travis Berry
-		%script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"}
+		%script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"}
 		%script{:src => "/js/common.js"}
