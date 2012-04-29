@@ -17,17 +17,22 @@ def solve params
   configurations = {start => ""}
   step = 0
   solution = nil
-  #check it two buckets add to target - easy to solve
-  if params[:bucket1].to_i + params[:bucket2].to_i == params[:target].to_i or params[:target].to_i == 0
+  #check if two buckets add to target - easy to solve
+  sum = 0
+  params[:bucket].each { |k,v| sum+=v.to_i }
+  if sum == params[:target].to_i or params[:target].to_i == 0
     solution = "Fill both buckets."
     step = 1
-    if params[:bucket1].to_i == 0
-      configurations[solution] = "Fill #{params[:bucket2]} bucket."
-    elsif params[:bucket2].to_i == 0
-      configurations[solution] = "Fill #{params[:bucket1]} bucket."
-    elsif params[:target].to_i == 0
-      configurations[solution] = "That's easy. Do nothing. Relax for a bit."
+    solve_string = ""
+    params[:bucket].each do |k,v| 
+      if v.to_i != 0
+        solve_string << "Fill #{v} bucket,"
+      end
     end
+    if params[:target].to_i == 0
+      solve_string = "That's easy. Do nothing. Relax for a bit."
+    end
+    configurations[solution] = solve_string
   end
 
   current = configurations.keys
@@ -103,11 +108,22 @@ def solveable?(bucket, target)
   sum = 0
   bucket.each { |k,v| sum+=v.to_i }
   if target.to_i > sum
-    false
-  elsif bucket.each { |k,v| v.to_i % 2 == 0 } and target.to_i % 2 != 0
-    false
+    return false
   else
-    true
+    even = true
+    cnt = 0
+    while even == true and cnt <= bucket.length do
+      bucket.each do |k,v| 
+        if v.to_i % 2 != 0
+          even = false
+        end 
+      end
+      cnt+=1
+    end
+    if even == true and target.to_i % 2 != 0
+      return false
+    end
+    return true
   end
 end
 
