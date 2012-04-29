@@ -104,27 +104,16 @@ end
 
 def solveable?(bucket, target)
   sum = 0
-  bucket.each { |k,v| sum+=v.to_i }
-  if target.to_i > sum
-    return false
-  else
-    even = true
-    cnt = 0
-    #do this nasty loop to check if all bucket values are even
-    while even == true and cnt <= bucket.length do
-      bucket.each do |k,v| 
-        if v.to_i % 2 != 0
-          even = false
-        end 
-      end
-      cnt+=1
-    end
-    #if all even bucket values but an odd target - fail
-    if even == true and target.to_i % 2 != 0
-      return false
-    end
-    return true
+  even = true
+  cnt = 0
+  bucket.each do |k,v| 
+    sum+=v.to_i
+    if v.to_i % 2 != 0
+      even = false
+    end 
   end
+  return false if (even == true and target.to_i % 2 != 0) or (target.to_i > sum)
+  return true
 end
 
 def given? field
