@@ -15,26 +15,24 @@
 						%span
 							%label{:for => "number"} Number of buckets
 						%span.field
-							%input{:name => "number", :type => "number", :value => @values[:name], :size => "30", :required => true, :min => 2, :id => "number_field"}
+							%input{:name => "number", :type => "number", :size => "30", :required => true, :min => 2, :id => "number_field"}
 							%span.error= @errors[:number]
 					#field_block
 					%p.form-field-row
 						%span
 							%label{:for => "target"} Target Size
 						%span.field
-							%input{:name => "target", :type => "number", :value => @values[:email], :size => "30", :required => true}
+							%input{:name => "target", :type => "number", :size => "30", :required => true}
 							%span.error= @errors[:target]
 					%p.form-field-row
 						%span
 							%label{:for => "email"} Email (if you want a copy of the results emailed to you)
 						%span.field
-							%input{:name => "email", :type => "email", :value => @values[:email], :size => "30"}
+							%input{:name => "email", :type => "email", :size => "30"}
 							%span.error= @errors[:email]
 					%br
 					%p.form-field-row.send
 						%input#send-button.btn.btn-inverse{:name => "send-button", :type => "submit", :value => "Calculate"}
-					- if @sent == true
-						.notice Your message has been sent. Thank you!
 			Created by 
 			%a{:href => "http://www.travisberry.com"} Travis Berry
 		%script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"}

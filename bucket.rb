@@ -15,10 +15,8 @@ def solve params
   # is e.g. [[3, 0], [5, 0]] for empty buckets of size 3 and 5
 
   configurations = {start => ""}
-  step = 0
-  solution = nil
-  #check if two buckets add to target - easy to solve
-  sum = 0
+  step, sum, solution = 0, 0, nil
+  # #check if two buckets add to target - easy to solve
   params[:bucket].each { |k,v| sum+=v.to_i }
   if sum == params[:target].to_i or params[:target].to_i == 0
     solution = "" #set to anything so not nill anymore
@@ -103,9 +101,7 @@ def valid_email?(email)
 end
 
 def solveable?(bucket, target)
-  sum = 0
-  even = true
-  cnt = 0
+  sum, even = 0, true
   bucket.each do |k,v| 
     sum+=v.to_i
     if v.to_i % 2 != 0
@@ -132,7 +128,6 @@ def validate params
   if given? params[:email]
     errors[:email]   = "Please enter a valid email address" unless valid_email? params[:email]
   end
-
 
   errors
 end
@@ -163,13 +158,12 @@ end
 
 
 get '/?' do
-  @errors, @values, @sent = {}, {}, false
+  @errors = {}
   haml :bucket_form
 end
 
 post '/bucket-solved/?' do
   @errors     = validate(params)
-  @values     = params
 
   if @errors.empty?
     begin
